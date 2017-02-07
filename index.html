@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>stockyr -stock info startup</title>
+  </head>
+
+<!-- Nav Bar -->
+
+  <body>
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li>Deep-Dive</li>
+        <li>About</li>
+        <li>Help(!)</li>
+      </ul>
+    </nav>
+
+<!-- Header/title -->
+<!-- find a really cool/slick font that is fitting for Stockyr!-->
+  <header>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 text-center">
+      <h1>Stockyr</h1>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+      <p>('cause stockr is already taken...those punks!)</p>
+  </header>
+
+  <body>
+    <form class="tickerfinder">
+      <label for="what company">What's the name of the company you would like to research?</label>
+      <input type="text" name="find a ticker">
+      <button class="lookupButton">Click me</button>
+    </form>
+<!--it would be cool to get this 'ticker list' to render dynamically!-->
+    <h3>Here's our results
+    <ul class="list-unstyled ticker-list">
+    </ul>
+
+
+
+    <form class="stockInput">
+      <label for="company-name">Enter a company ticker symbol here</label>
+      <input type="text" id="exact ticker" name="company-to-research" placeholder="As in literally right here....">
+
+
+      <button class="btn btn-primary btn-lg btn-block stock-button">Let's Go! </button>
+    </form>
+
+    <form>
+      <h2>
+        <div id="stock-output"></div>
+      </h2>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    <script src='functions.js'>
+    </script>
+
+
+  </body>
+
+</html>
