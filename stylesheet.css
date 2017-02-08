@@ -1,9 +1,21 @@
 
 
 /*  ideas:
-1- add in hover feature for result list changing the color that the mouse is over to red or dark orange
-2- set color of <ul> results to blue (so they at least look clickable)
+1- add in hover feature for result list changing the color that the mouse is over to red or dark orange */
+
+/*
+/*2- set color of <ul> results to blue (so they at least look clickable)*/
+/*
+. {
+  color : blue;
+}
+*/
+
+.result : hover {
+  color: orange,
+}
+/*
 3- you could do a button for each result, but that might not be as esthetically pleasing
 */
 
-/*  find a good font style for the website 
+/*  find a good font style for the website

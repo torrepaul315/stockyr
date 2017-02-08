@@ -1,3 +1,31 @@
+$.ajax({
+      url:'https://newsapi.org/v1/articles?source=bloomberg&sortBy=top&apiKey=86ebc08b5f104c9bab370a2b6a8d0471',
+      method: 'GET',
+      dataType: 'json'
+    }).done(function(response) {
+      console.log(response);
+      // ["index"]["description"]
+      // console.log(response["articles"][1]["description"]);
+//!!!!! cool stretch goal! (for thursday if everything else is working) make the marquee a clickable html link to the bloomberg site! 
+     $(response["articles"]).each(function(index){
+        console.log(index);
+        $('marquee').append(response["articles"][index]["description"]+ ' ' + response["articles"][index]["title"]+ '.......')
+      });
+
+      // $('marquee').append(response["articles"][]["description"] + ' ' +
+      // response[index]["title"]
+
+      //  + '.......')
+
+
+      // $('<div>').append(data.Name + ' traded at a high of ' + data.High + ' today.').appendTo('#stock-output');
+
+
+
+    }).fail(function(err){
+      console.log('we failed :/');
+      console.log(err);
+    });
 
 
 var data = "";
@@ -23,7 +51,7 @@ $('.lookupButton').on('click', function(event) {
 //fires get to markit ticker lookup API
 function findTicker(){
     var possibleStock = $('input[name="find a ticker"]').val();
-    console.log("it's linked!");
+
     console.log(possibleStock);
 
     $.ajax({
@@ -31,22 +59,40 @@ function findTicker(){
         method: 'GET',
         dataType: 'json'
     }).done(function(response) {
-
+        console.log(response);
 
 
       $('.ticker-list').empty();
+      if (response.length === 0 ) {
+        alert('sorry, no results were found')
+      }
       $(response).each( function(index){
-        var coName = response[index]["Name"];
-        var tickerSymbol = response[index]["Symbol"];
-        var eachResult = "<li class='result' id=" +tickerSymbol +">company name: "+ coName + " | ticker symbol: " + tickerSymbol+ "</li>";
-        console.log(eachResult);
-// thanks tom! make sure you fully understand the logic
-      $('.ticker-list').append(eachResult);
+        //check this with Isaac re this if line below- put in busta rhymes, successful response, empty array!
+        // if (response.length === 0 ) {
+        //   alert('sorry, no results were found')
+        // }
+        //yep, this validation script is not working either!
+        // as per Isaac, use the stock exchange value as the validator
+        if (response[index]["Name"] !== "" || response[index]["Symbol"] === response[index +1]["Symbol"]) {
+          var coName = response[index]["Name"];
+          var tickerSymbol = response[index]["Symbol"];
+          var eachResult = "<li class='result' id=" +tickerSymbol +">company name: "+ coName + " | ticker symbol: " + tickerSymbol+ "</li>";
+          console.log(eachResult);
+  // thanks tom! make sure you fully understand the logic
+//!!!! another thing to t/s- how to add on hover color change? tried several different ways to no result!
+          $('.ticker-list').append(eachResult).css({color:"darkblue"});
+        }
+      //   var abbr = $(this).attr("id")
+      //   findStock(abbr)
+      //   console.log("aaa")
+
+      });
+
       $('.result').on("click", function(){
+        $('#stock-output').empty();
         var abbr = $(this).attr("id")
         findStock(abbr)
         console.log("aaa")
-      })
       });
 
 
@@ -74,17 +120,18 @@ function findTicker(){
   });
 
 
-//API call to Markit to get stock quote 
+//API call to Markit to get stock quote
 function findStock(sSymbol) {
   $.ajax({
     url: 'http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol=' + sSymbol,
     method: 'GET',
     dataType: 'jsonp'
   }).done(function(data) {
+    console.log(data);
   $('<div>').append(data.Name + ' traded at a high of ' + data.High + ' today.').appendTo('#stock-output');
 
-    // console.log(data.Name);
-    // console.log(data.High);
+    console.log(data.Name);
+    console.log(data.High);
   }).fail(function(err) {
     console.log(err);
   });
@@ -92,92 +139,3 @@ function findStock(sSymbol) {
   // $('div').append(data.Name + ' traded at a hight of' + data.High).appendTo('#stock-output');
 }
 // so it works to do things this way, but
-
-
-
-
-//brandon idea- just do an "onclick" in the html to fire up the findStock function, which would get rid of the need for lines 11 through 18!
-
-// $.get('http://dev.markitondemand.com/MODApis   /Api/v2/Quote/jsonp?symbol=MSFT&callback=myFunction', function () {
-//   alert('fired off');
-// }).then(console.log(result))
-// .catch(alert('unsucessful'));
-
-
-
-
-
-
-// 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=' + stockSymbol + '&callback=myFunction'
-
-// httpRequest.onreadystatechange= markitData;
-//
-
-
-
-
-
-
-/* copied and pasted from markit repo!
-
-*/
-// var Markit = {};
-/**
-* Define the QuoteService.
-* First argument is symbol (string) for the quote. Examples: AAPL, MSFT, JNJ, GOOG.
-* Second argument is fCallback, a callback function executed onSuccess of API.
-*/
-// Markit.QuoteService = function(sSymbol, fCallback) {
-//     this.symbol = sSymbol;
-//     this.fCallback = fCallback;
-//     this.DATA_SRC = "http://dev.markitondemand.com/Api/v2/Quote/jsonp";
-//     this.makeRequest();
-// };
-/**
-* Ajax success callback. fCallback is the 2nd argument in the QuoteService constructor.
-*/
-// Markit.QuoteService.prototype.handleSuccess = function(jsonResult) {
-//     this.fCallback(jsonResult);
-// };
-// /**
-// * Ajax error callback
-// */
-// Markit.QuoteService.prototype.handleError = function(jsonResult) {
-//     console.error(jsonResult);
-// };
-/**
-* Starts a new ajax request to the Quote API
-*/
-// Markit.QuoteService.prototype.makeRequest = function() {
-//     //Abort any open requests
-//     if (this.xhr) { this.xhr.abort(); }
-//     //Start a new request
-//     this.xhr = $.ajax({
-//         data: { symbol: this.symbol },
-//         url: this.DATA_SRC,
-//         dataType: "jsonp",
-//         success: this.handleSuccess,
-//         error: this.handleError,
-//         context: this
-//     });
-// };
-
-// new Markit.QuoteService("booo", function(jsonResult) {
-//
-//     //Catch errors
-//     if (!jsonResult || jsonResult.Message){
-//         console.error("Error: ", jsonResult.Message);
-//         return;
-//     }
-//
-//     //If all goes well, your quote will be here.
-//     console.log(jsonResult);
-//
-//     //Now proceed to do something with the data.
-//   //  $("h1").first().text(jsonResult.Name);
-//
-//     /**
-//     * Need help? Visit the API documentation at:
-//     * http://dev.markitondemand.com
-//     */
-// });
