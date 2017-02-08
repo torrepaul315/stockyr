@@ -6,10 +6,11 @@ $.ajax({
       console.log(response);
       // ["index"]["description"]
       // console.log(response["articles"][1]["description"]);
-//!!!!! cool stretch goal! (for thursday if everything else is working) make the marquee a clickable html link to the bloomberg site! 
+//!!!!! cool stretch goal! (for thursday if everything else is working) make the marquee a clickable html link to the bloomberg site!
      $(response["articles"]).each(function(index){
         console.log(index);
         $('marquee').append(response["articles"][index]["description"]+ ' ' + response["articles"][index]["title"]+ '.......')
+        $('marquee').css('color', 'green');
       });
 
       // $('marquee').append(response["articles"][]["description"] + ' ' +
@@ -66,35 +67,47 @@ function findTicker(){
       if (response.length === 0 ) {
         alert('sorry, no results were found')
       }
-      $(response).each( function(index){
-        //check this with Isaac re this if line below- put in busta rhymes, successful response, empty array!
-        // if (response.length === 0 ) {
-        //   alert('sorry, no results were found')
-        // }
-        //yep, this validation script is not working either!
-        // as per Isaac, use the stock exchange value as the validator
-        if (response[index]["Name"] !== "" || response[index]["Symbol"] === response[index +1]["Symbol"]) {
-          var coName = response[index]["Name"];
-          var tickerSymbol = response[index]["Symbol"];
-          var eachResult = "<li class='result' id=" +tickerSymbol +">company name: "+ coName + " | ticker symbol: " + tickerSymbol+ "</li>";
-          console.log(eachResult);
-  // thanks tom! make sure you fully understand the logic
-//!!!! another thing to t/s- how to add on hover color change? tried several different ways to no result!
-          $('.ticker-list').append(eachResult).css({color:"darkblue"});
-        }
-      //   var abbr = $(this).attr("id")
-      //   findStock(abbr)
-      //   console.log("aaa")
 
-      });
+       else {
+            $('.ticker-list').append("here's what we found:").css('color', 'blue');
 
-      $('.result').on("click", function(){
-        $('#stock-output').empty();
-        var abbr = $(this).attr("id")
-        findStock(abbr)
-        console.log("aaa")
-      });
+            $(response).each( function(index){
+            //check this with Isaac re this if line below- put in busta rhymes, successful response, empty array!
+            // if (response.length === 0 ) {
+            //   alert('sorry, no results were found')
+            // }
+            //yep, this validation script is not working either!
+            // as per Isaac, use the stock exchange value as the validator
+            if (response[index]["Name"] !== "" || response[index]["Symbol"] === response[index +1]["Symbol"]) {
+              var coName = response[index]["Name"];
+              var tickerSymbol = response[index]["Symbol"];
+              var eachResult = "<li class='result' id=" +tickerSymbol +">company name: "+ coName + " | ticker symbol: " + tickerSymbol+ "</li>";
+              console.log(eachResult);
+      // thanks tom! make sure you fully understand the logic
+    //!!!! another thing to t/s- how to add on hover color change? tried several different ways to no result!
+              $('.ticker-list').append(eachResult).css({color:"green"});
+          }
+        //   var abbr = $(this).attr("id")
+        //   findStock(abbr)
+        //   console.log("aaa")
 
+        });
+
+        $('.result').on("click", function(){
+          $('#stock-output').empty();
+          var abbr = $(this).attr("id")
+          findStock(abbr)
+          console.log("aaa")
+        });
+
+        $('.result').on('mouseenter', function() {
+          $('.result').css('color', 'orange');
+        })
+
+        $('.result').on('mouseleave', function() {
+          $('.result').css('color', 'green');
+        })
+    }
 
 
     }).fail(function(err){

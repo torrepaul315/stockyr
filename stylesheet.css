@@ -1,5 +1,64 @@
 
 
+body {
+  font-family: 'Rubik', sans-serif;
+
+}
+
+h1 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 56px;
+}
+
+/* news ticker */
+.scrolling-article {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  height: 30px;
+
+}
+
+input::-webkit-input-placeholder {
+    color: green;
+    text-align: center;
+}
+
+.title-underline {
+  border-bottom: 2px solid;
+}
+.company-search {
+  margin-top: 10px;
+}
+
+}
+
+/*Navbar*/
+/*.container {
+    background-color: #ddefff;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+
+}*/
+
+
+
+
+
+.result : hover {
+  color: 'orange';
+}
+/*
+3- you could do a button for each result, but that might not be as esthetically pleasing
+*/
+
+/*  find a good font style for the website
+
 /*  ideas:
 1- add in hover feature for result list changing the color that the mouse is over to red or dark orange */
 
@@ -10,12 +69,3 @@
   color : blue;
 }
 */
-
-.result : hover {
-  color: orange,
-}
-/*
-3- you could do a button for each result, but that might not be as esthetically pleasing
-*/
-
-/*  find a good font style for the website

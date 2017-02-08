@@ -3,57 +3,108 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href="https://glyphsearch.com/?query=smiley&copy=htmlentity"</link>
     <title>stockyr -stock info startup</title>
   </head>
 
 <!-- Nav Bar -->
 
   <body>
-    <nav>
-      <marquee class="scrolling-article"></marquee>
-        <ul>
-          <li>Home</li>
-          <li>Deep-Dive</li>
-          <li>About</li>
-          <li>Help(!)</li>
-        </ul>
-    </nav>
+    <!--another stetch idea: insert bloomberg logo along left top corner in front of marquee news-->
+
+    <a>from Bloomberg:</a><marquee class="scrolling-article"></marquee>
+
+
+
+
+
+
+
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <div class="navbar-right navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-left">
+                <li><a>Home</a></li>
+                <li><a>Deep-Dive</a></li>
+                <li><a>About</a></li>
+                <li><a>Help</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
 
 <!-- Header/title -->
 <!-- find a really cool/slick font that is fitting for Stockyr!-->
   <header>
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-6 text-center">
-      <h1>Stockyr</h1>
-      </div>
+        <div class="col-md-6 text-center">
+          <h1><i class = "title-underline">Stockyr</i></h1>
+        </div>
       <div class="col-md-3"></div>
     </div>
-
-      <p>('cause stockr is already taken...those punks!)</p>
+    <div class="row">
+      <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+          <p><i class = "title-underline">('cause stockr is already taken...those punks!)</i></p>
+        </div>
+      <div class="col-md-3"></div>
+  </div>
   </header>
 
   <body>
-    <form class="tickerfinder">
-      <label for="what company">What's the name of the company you would like to research?</label>
-      <input type="text" name="find a ticker">
-      <button class="lookupButton">Let's find that stock</button>
+    <div class="row">
+      <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+          <form class="tickerfinder">
+            <label for="what company">Enter the Company that you're looking for...<br>or at least enter what you <i>think</i> their name is!
+            </label>
+        </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+          <input type="text" name="find a ticker" placeholder="company name"><b>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+        <div class="col-md-6 text-center company-search">
+          <button class="lookupButton btn btn-primary" button type="button" >Company Search</button>
+        </div>
+      <div class="col-md-3"></div>
+    </div>
     </form>
-<!--it would be cool to get this 'ticker list' to render dynamically!-->
+<!--so1- let's get rid of the here's our
+  2 hav the results list render on the left side
+  a. separate out company name and ticker symbol into separate columns!
+
+  3 have the stock info render to the right
+
+  stretch goal:
+  after the stock info renders to the right, have an additional click feature that appears to have the stock chart feature render to the right, overwriting result list on the left side!
+
+-->
     <h3>Here's our results
     <ul class="list-unstyled ticker-list">
     </ul>
 
 
 
-    <form class="stockInput">
+    <!-- <form class="stockInput">
       <label for="company-name">Enter a company ticker symbol here</label>
       <input type="text" id="exact ticker" name="company-to-research" placeholder="As in literally right here....">
 
 
       <button class="btn btn-primary btn-lg btn-block stock-button">Let's Go! </button>
-    </form>
+    </form> -->
 
     <form>
       <h2>
