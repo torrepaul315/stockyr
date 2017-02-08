@@ -8,7 +8,6 @@ $.ajax({
       // console.log(response["articles"][1]["description"]);
 //!!!!! cool stretch goal! (for thursday if everything else is working) make the marquee a clickable html link to the bloomberg site!
      $(response["articles"]).each(function(index){
-        console.log(index);
         $('marquee').append(response["articles"][index]["description"]+ ' ' + response["articles"][index]["title"]+ '.......')
         $('marquee').css('color', 'green');
       });
@@ -46,6 +45,7 @@ $('.stock-button').on('click', function (event) {
 //this is where you enter in an approximate company name
 $('.lookupButton').on('click', function(event) {
   event.preventDefault();
+  // console.log("find a ticker");
   findTicker();
 })
 
@@ -64,12 +64,13 @@ function findTicker(){
 
 
       $('.ticker-list').empty();
-      if (response.length === 0 ) {
+      if (response.length === 0 || response === "{}") {
         alert('sorry, no results were found')
       }
 
        else {
-            $('.ticker-list').append("here's what we found:").css('color', 'blue');
+            $('.ticker-list').append("here's what we found:").css('color', 'blue')
+            //  'border-right-color', 'black');
 
             $(response).each( function(index){
             //check this with Isaac re this if line below- put in busta rhymes, successful response, empty array!
@@ -141,7 +142,8 @@ function findStock(sSymbol) {
     dataType: 'jsonp'
   }).done(function(data) {
     console.log(data);
-  $('<div>').append(data.Name + ' traded at a high of ' + data.High + ' today.').appendTo('#stock-output');
+  $('<div>').append(data.Name + ':<b> traded at a high of ' + data.High + ' today.'+ '<b>').appendTo('#stock-output');
+  $('<div>').append(data)
 
     console.log(data.Name);
     console.log(data.High);
