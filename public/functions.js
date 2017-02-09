@@ -1,3 +1,5 @@
+
+
 $.ajax({
       url:'https://newsapi.org/v1/articles?source=bloomberg&sortBy=top&apiKey=86ebc08b5f104c9bab370a2b6a8d0471',
       method: 'GET',
@@ -8,7 +10,7 @@ $.ajax({
       // console.log(response["articles"][1]["description"]);
 //!!!!! cool stretch goal! (for thursday if everything else is working) make the marquee a clickable html link to the bloomberg site!
      $(response["articles"]).each(function(index){
-        $('marquee').append(response["articles"][index]["description"]+ ' ' + response["articles"][index]["title"]+ '.......')
+        $('marquee').append(response["articles"][index]["title"] + '- ' +  response["articles"][index]["description"] + '.......')
         $('marquee').css('color', 'green');
       });
 
@@ -43,11 +45,28 @@ $('.stock-button').on('click', function (event) {
 });
 
 //this is where you enter in an approximate company name
-$('.lookupButton').on('click', function(event) {
+// $('.lookupButton').on('click', function(event) {
+//   event.preventDefault();
+//   // console.log(".find a ticker");
+//   findTicker();
+// })
+
+
+$('.tickerfinder').on('submit', function(event) {
   event.preventDefault();
-  // console.log("find a ticker");
-  findTicker();
-})
+  console.log("find a ticker");
+  if ($('input[name="find a ticker"]').val() !== "") {
+
+    findTicker();
+  $('#stock-output').empty();
+  }
+  else {
+    $('.ticker-list').empty();
+    $('.ticker-list').append("Please enter a search term or at least a partial company name").css('color', 'red')
+  }
+});
+
+
 
 //fires get to markit ticker lookup API
 function findTicker(){
@@ -69,8 +88,10 @@ function findTicker(){
       }
 
        else {
+
             $('.ticker-list').append("here's what we found:").css('color', 'blue')
             //  'border-right-color', 'black');
+            $('.main-left').css('border-right', '1px')
 
             $(response).each( function(index){
             //check this with Isaac re this if line below- put in busta rhymes, successful response, empty array!
@@ -79,7 +100,7 @@ function findTicker(){
             // }
             //yep, this validation script is not working either!
             // as per Isaac, use the stock exchange value as the validator
-            if (response[index]["Name"] !== "" || response[index]["Symbol"] === response[index +1]["Symbol"]) {
+            if (response[index]["Name"] !== "" && response[index]["Exchange"] !== "BATS Trading Inc") {
               var coName = response[index]["Name"];
               var tickerSymbol = response[index]["Symbol"];
               var eachResult = "<li class='result' id=" +tickerSymbol +">company name: "+ coName + " | ticker symbol: " + tickerSymbol+ "</li>";
@@ -102,11 +123,11 @@ function findTicker(){
         });
 
         $('.result').on('mouseenter', function() {
-          $('.result').css('color', 'orange');
+          $(this).css('color', 'orange');
         })
 
         $('.result').on('mouseleave', function() {
-          $('.result').css('color', 'green');
+          $(this).css('color', 'green');
         })
     }
 
@@ -142,15 +163,60 @@ function findStock(sSymbol) {
     dataType: 'jsonp'
   }).done(function(data) {
     console.log(data);
-  $('<div>').append(data.Name + ':<b> traded at a high of ' + data.High + ' today.'+ '<b>').appendTo('#stock-output');
-  $('<div>').append(data)
+/* info to add in
+name first and foremost!
+
+2 opened at 'Open'
+3 with a 'high' and 'low' of (high, low)
+5 is currently up or down changePercent
+
+4 ChangePercentYTD
+
+*/
+var dateStamp = 'as of '+ data.Timestamp.slice(0,9) + ' at ' + data.Timestamp.slice(10,18) + ', ';
+
+console.log(dateStamp);
+
+var yearToDate = ".  " + data.Name + "'s year to date return is " + data.ChangePercentYTD.toPrecision(3) + "%."
+
+console.log(yearToDate);
+//so yeah! this function is not doing what I'd like it to do
+var intraDay = upOrDown(data);
+
+console.log(intraDay);
+
+
+  $('<div>').append(dateStamp + data.Name + intraDay +
+  ', after starting the day out at ' + data.Open + yearToDate  ).appendTo('#stock-output');
+
+
+  $('<div>').append(data);
 
     console.log(data.Name);
     console.log(data.High);
   }).fail(function(err) {
     console.log(err);
   });
+// here's where the InteractiveChart experiment begins!
+var input = {}
 
-  // $('div').append(data.Name + ' traded at a hight of' + data.High).appendTo('#stock-output');
+
+
+
+
+
+
+
+
 }
-// so it works to do things this way, but
+
+
+function upOrDown (data) {
+   console.log(data);
+    if (data.ChangePercent >= 0) {
+       return ' is trading up ' + data.ChangePercent.toPrecision(3) + "% this current market session"
+    }
+    else {
+       return ' is trading down ' + data.ChangePercent.toPrecision(3) + "% this current market session"
+    };
+}
