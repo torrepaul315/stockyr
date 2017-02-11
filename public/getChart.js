@@ -6,7 +6,7 @@ $.ajax({
 //url string + JSON.stringify({
 
 //generate the url first as a variable, then pass the variable into the ajax request!
-all of the parameters you need to pass in...theres a bunch that you'll need to pass in!
+// all of the parameters you need to pass in...theres a bunch that you'll need to pass in!
 
 })
 
